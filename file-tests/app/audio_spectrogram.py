@@ -52,26 +52,27 @@ def load_mp3_to_mono_wav_array(mp3_path, sr=22050):
         return None, None
 
 
-def main(input_files):
+def main(input_dir, output_dir):
     """
     main function for file processing
     """
-    for input_mp3_file in input_files:
-        print(f"Attempting to use: {input_mp3_file}. Please ensure this file exists.")
-        
-        if os.path.exists(input_mp3_file):
-            print(f"\nProcessing '{input_mp3_file}'...")
+    if not os.path.exists(input_dir):
+        print(f"Input directory not found: {input_dir}. Please ensure it exists and is mounted correctly.")
+        exit(1)
+
+    for filename in os.listdir(input_dir):
+        if filename.endswith(".mp3"):
+            input_filepath = os.path.join(input_dir, filename)
+            print(f"\nProcessing '{input_filepath}'...")
 
             # Load MP3
-            audio_series, sr = load_mp3_to_mono_wav_array(input_mp3_file, sr=22050)
+            audio_series, sr = load_mp3_to_mono_wav_array(input_filepath, sr=22050)
 
             if audio_series is not None:
                 print(f"Audio loaded. Sample Rate: {sr} Hz, Duration: {len(audio_series)/sr:.2f} seconds")
 
             else:
                 print("Failed to load audio. Cannot generate spectrograms.")
-        else:
-            print(f"Skipping processing because '{input_mp3_file}' does not exist.")
 
 
 # Example Usage:
@@ -79,10 +80,15 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser("file options test script")
 
-    parser.add_argument("input_files", nargs="+",
-                        help="one or more input files to process")
-
+    parser.add_argument("--input_dir", type=str, default="./input",
+                        help="Directory containing input MP3 files. Defaults to ./input.")
+    parser.add_argument("--output_dir", type=str, default="./output",
+                        help="Directory to save processed MP3 files and summary. Defaults to ./output.")
+    
     args = parser.parse_args()
 
-    main(args.input_files)
+    input_dir = args.input_dir
+    output_dir = args.output_dir
+
+    main(input_dir, output_dir)
     
