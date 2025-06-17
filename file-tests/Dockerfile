@@ -41,16 +41,16 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Copy your Python application code into the container
-COPY app/audio_spectrogram.py .
+COPY app/*.py .
 
 # Switch to the non-root user for runtime
 USER appuser
 
 # Set the entry point for the container.
 # The `python -u` flag ensures unbuffered output, which is good for Docker logs.
-ENTRYPOINT ["python", "-u", "audio_spectrogram.py"]
+ENTRYPOINT ["python", "-u", "main.py"]
 
 # Command to be executed by the entrypoint.
-# This will be passed as arguments to `python -u audio_spectrogram.py`
+# This will be passed as arguments to `python -u main.py`
 # If you don't provide any arguments when running `docker run`, this will be used.
 CMD ["--input_dir", "/app/input", "--output_dir", "/app/output"]
