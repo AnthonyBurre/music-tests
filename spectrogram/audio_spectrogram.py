@@ -7,18 +7,15 @@ from pydub import AudioSegment # For robust MP3 loading and potential conversion
 
 def load_mp3_to_mono_wav_array(mp3_path, sr=22050):
     """
-    Loads an MP3 file, converts it to mono WAV (if needed), and 
-loads it as a
+    Loads an MP3 file, converts it to mono WAV (if needed), and loads it as a
     NumPy array with a specified sample rate.
 
     Args:
         mp3_path (str): Path to the MP3 file.
-        sr (int): Target sample rate. Defaults to 22050 Hz (common 
-for audio ML).
+        sr (int): Target sample rate. Defaults to 22050 Hz (common for audio ML).
 
     Returns:
-        tuple: (audio_time_series, sample_rate) as (np.ndarray, 
-int)
+        tuple: (audio_time_series, sample_rate) as (np.ndarray, int)
                Returns None, None if the file cannot be processed.
     """
     if not os.path.exists(mp3_path):
@@ -67,14 +64,10 @@ series.
         audio_time_series (np.ndarray): The audio time series.
         sr (int): Sample rate of the audio.
         n_fft (int): FFT window size. Defaults to 2048.
-        hop_length (int): Number of samples between successive 
-frames. Defaults to 512.
-        type (str): Type of spectrogram ('magnitude', 'power', or 
-'mel').
-                    'magnitude' for |STFT|, 'power' for |STFT|^2, 
-'mel' for Mel spectrogram.
-        window (str): Windowing function for FFT (e.g., 'hann', 
-'hamm', 'blackman').
+        hop_length (int): Number of samples between successive frames. Defaults to 512.
+        type (str): Type of spectrogram ('magnitude', 'power', or 'mel').
+                    'magnitude' for |STFT|, 'power' for |STFT|^2, 'mel' for Mel spectrogram.
+        window (str): Windowing function for FFT (e.g., 'hann', 'hamm', 'blackman').
 
     Returns:
         np.ndarray: The spectrogram.
@@ -123,13 +116,10 @@ def plot_spectrogram(spectrogram, sr, hop_length, title="Spectrogram", type='mag
     Args:
         spectrogram (np.ndarray): The spectrogram to plot.
         sr (int): Sample rate of the audio.
-        hop_length (int): Hop length used to create the 
-spectrogram.
+        hop_length (int): Hop length used to create the spectrogram.
         title (str): Title for the plot.
-        type (str): Type of spectrogram ('magnitude', 'power', or 
-'mel') for correct y-axis.
-        save_path (str, optional): Path to save the plot image 
-(e.g., 'spectrogram.png').
+        type (str): Type of spectrogram ('magnitude', 'power', or 'mel') for correct y-axis.
+        save_path (str, optional): Path to save the plot image (e.g., 'spectrogram.png').
                                    If None, the plot is displayed.
         figsize (tuple): Figure size for the plot.
     """

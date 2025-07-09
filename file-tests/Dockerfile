@@ -25,7 +25,6 @@ RUN groupadd --system appgroup
 RUN adduser --system --ingroup appgroup --home /app appuser
 
 # Ensure necessary directories are writable by the non-root user
-# For example, if your app needs to write to a log directory or an output directory
 # RUN mkdir -p /app/output && chown appuser:appgroup /app/output
 
 RUN chown appuser:appgroup /app
@@ -40,7 +39,7 @@ COPY app/requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copy your Python application code into the container
+# Copy Python application code into the container
 COPY app/*.py .
 
 # Switch to the non-root user for runtime
